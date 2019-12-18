@@ -4,7 +4,7 @@ date: 2019-12-18 06:52:06
 tags:
 ---
 in the root directory of **hexo** 
-(for me in the ~/Blog)
+(for me in the ~/Blog/lzg0015.github.io)
 open the terminal and input
 ```
 $ git add .
