@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Add PinYin Input Method in Debian Englishg Version | 日日省身日日新</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Why Is It necessary To Add Chinese Pinyin Input MethodFor most of the Debian applications, English is enough, however, we may need to input Chinese characters when brose some chinese website or use se">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Add PinYin Input Method in Debian Englishg Version">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;12&#x2F;31&#x2F;add-PinYin-input-method-in-Debian-Englishg-Version&#x2F;index.html">
+<meta property="og:site_name" content="日日省身日日新">
+<meta property="og:description" content="Why Is It necessary To Add Chinese Pinyin Input MethodFor most of the Debian applications, English is enough, however, we may need to input Chinese characters when brose some chinese website or use se">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-12-18T01:39:47.323Z">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="日日省身日日新" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">日日省身日日新</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">久积跬步能至千里</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-add-PinYin-input-method-in-Debian-Englishg-Version" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/31/add-PinYin-input-method-in-Debian-Englishg-Version/" class="article-date">
+  <time datetime="2018-12-31T09:11:33.000Z" itemprop="datePublished">2018-12-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Add PinYin Input Method in Debian Englishg Version
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Why-Is-It-necessary-To-Add-Chinese-Pinyin-Input-Method"><a href="#Why-Is-It-necessary-To-Add-Chinese-Pinyin-Input-Method" class="headerlink" title="Why Is It necessary To Add Chinese Pinyin Input Method"></a>Why Is It necessary To Add Chinese Pinyin Input Method</h1><p>For most of the Debian applications, English is enough, however, we may need to input Chinese characters when brose some chinese website or use search engine like Baidu.</p>
+<h2 id="How-to-do-it"><a href="#How-to-do-it" class="headerlink" title="How to do it?"></a>How to do it?</h2><ul>
+<li>add chinese locales support: (添加中文语系支持）</li>
+</ul>
+<p><code>sudo dpkg-reconfigure locales</code></p>
+<p>** Add zh_CN.GB2312, zh_CN_GBK, zh_Cn.UTF-8 **<br>** 用方向键选择，用空格选定，然后Ok 回车确定 **<br>** but still set default locale as en_US.UTF-8 **</p>
+<ul>
+<li>install fonts </li>
+</ul>
+<p><code>sudo apt-get install fonts-arphic-uming xfonts-intl-chinese xfonts-wqy</code></p>
+<h3 id="Fcitx-Input-Method"><a href="#Fcitx-Input-Method" class="headerlink" title="Fcitx Input Method"></a>Fcitx Input Method</h3><ul>
+<li>install fcitx and fcitx-pinyin</li>
+</ul>
+<p><code>sudo apt-get install fcitx fcitx-pinyin</code></p>
+<ul>
+<li>install im-config to config the input method</li>
+</ul>
+<p><code>sudo apt-get install im-config</code></p>
+<ul>
+<li>config the input method to fcitx</li>
+</ul>
+<p><em>* use **  *im-config</em>, <strong>then choose</strong> <em>fcitx</em> </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/12/31/add-PinYin-input-method-in-Debian-Englishg-Version/" data-id="ck4csffwz0004nli5gxjk4jgr" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/31/%E6%B7%BB%E5%8A%A0%E6%8B%BC%E9%9F%B3%E8%BE%93%E5%85%A5%E6%B3%95/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          添加拼音输入法
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%82%B2%E5%84%BF/" rel="tag">育儿</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B4%B8%E6%98%93%E6%88%98%E5%B8%A6%E6%9D%A5%E7%9A%84%E6%80%9D%E8%80%83/" rel="tag">贸易战带来的思考</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/%E8%82%B2%E5%84%BF/" style="font-size: 10px;">育儿</a> <a href="/tags/%E8%B4%B8%E6%98%93%E6%88%98%E5%B8%A6%E6%9D%A5%E7%9A%84%E6%80%9D%E8%80%83/" style="font-size: 10px;">贸易战带来的思考</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/12/18/test/">test</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/18/today/">today</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/18/%E5%9C%A8Github%E4%B8%8A%E5%A4%87%E4%BB%BDHexo%E5%8D%9A%E5%AE%A2/">在Github上备份Hexo博客</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/18/how-to-add-images-in-hexo-blog/">how to add images in hexo blog</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/18/backup/">backup</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 LZG<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
