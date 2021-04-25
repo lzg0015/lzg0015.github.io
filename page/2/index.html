@@ -65,6 +65,49 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-how-to-add-images-in-hexo-blog" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/12/18/how-to-add-images-in-hexo-blog/" class="article-date">
+  <time datetime="2019-12-18T00:57:15.000Z" itemprop="datePublished">2019-12-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/18/how-to-add-images-in-hexo-blog/">how to add images in hexo blog</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>install the add-in</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install https://github.com/CodeFalling/hexo-asset-image --save</span><br></pre></td></tr></table></figure>
+<p>open the file <strong>/node_modules/hexo-asset-image/index.js</strong> by any text editor and replace the original text by </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">&apos;use strict&apos;;</span><br><span class="line">var cheerio = require(&apos;cheerio&apos;);</span><br><span class="line"></span><br><span class="line">// http://stackoverflow.com/questions/14480345/how-to-get-the-nth-occurrence-in-a-string</span><br><span class="line">function getPosition(str, m, i) &#123;</span><br><span class="line">  return str.split(m, i).join(m).length;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var version = String(hexo.version).split(&apos;.&apos;);</span><br><span class="line">hexo.extend.filter.register(&apos;after_post_render&apos;, function(data)&#123;</span><br><span class="line">  var config = hexo.config;</span><br><span class="line">  if(config.post_asset_folder)&#123;</span><br><span class="line">    	var link = data.permalink;</span><br><span class="line">	if(version.length &gt; 0 &amp;&amp; Number(version[0]) == 3)</span><br><span class="line">	   var beginPos = getPosition(link, &apos;/&apos;, 1) + 1;</span><br><span class="line">	else</span><br><span class="line">	   var beginPos = getPosition(link, &apos;/&apos;, 3) + 1;</span><br><span class="line">	// In hexo 3.1.1, the permalink of &quot;about&quot; page is like &quot;.../about/index.html&quot;.</span><br><span class="line">	var endPos = link.lastIndexOf(&apos;/&apos;) + 1;</span><br><span class="line">    link = link.substring(beginPos, endPos);</span><br><span class="line"></span><br><span class="line">    var toprocess = [&apos;excerpt&apos;, &apos;more&apos;, &apos;content&apos;];</span><br><span class="line">    for(var i = 0; i &lt; toprocess.length; i++)&#123;</span><br><span class="line">      var key = toprocess[i];</span><br><span class="line"> </span><br><span class="line">      var $ = cheerio.load(data[key], &#123;</span><br><span class="line">        ignoreWhitespace: false,</span><br><span class="line">        xmlMode: false,</span><br><span class="line">        lowerCaseTags: false,</span><br><span class="line">        decodeEntities: false</span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">      $(&apos;img&apos;).each(function()&#123;</span><br><span class="line">		if ($(this).attr(&apos;src&apos;))&#123;</span><br><span class="line">			// For windows style path, we replace &apos;\&apos; to &apos;/&apos;.</span><br><span class="line">			var src = $(this).attr(&apos;src&apos;).replace(&apos;\\&apos;, &apos;/&apos;);</span><br><span class="line">			if(!/http[s]*.*|\/\/.*/.test(src) &amp;&amp;</span><br><span class="line">			   !/^\s*\//.test(src)) &#123;</span><br><span class="line">			  // For &quot;about&quot; page, the first part of &quot;src&quot; can&apos;t be removed.</span><br><span class="line">			  // In addition, to support multi-level local directory.</span><br><span class="line">			  var linkArray = link.split(&apos;/&apos;).filter(function(elem)&#123;</span><br><span class="line">				return elem != &apos;&apos;;</span><br><span class="line">			  &#125;);</span><br><span class="line">			  var srcArray = src.split(&apos;/&apos;).filter(function(elem)&#123;</span><br><span class="line">				return elem != &apos;&apos; &amp;&amp; elem != &apos;.&apos;;</span><br><span class="line">			  &#125;);</span><br><span class="line">			  if(srcArray.length &gt; 1)</span><br><span class="line">				srcArray.shift();</span><br><span class="line">			  src = srcArray.join(&apos;/&apos;);</span><br><span class="line">			  $(this).attr(&apos;src&apos;, config.root + link + src);</span><br><span class="line">			  console.info&amp;&amp;console.info(&quot;update link as:--&gt;&quot;+config.root + link + src);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;else&#123;</span><br><span class="line">			console.info&amp;&amp;console.info(&quot;no src attr, skipped...&quot;);</span><br><span class="line">			console.info&amp;&amp;console.info($(this));</span><br><span class="line">		&#125;</span><br><span class="line">      &#125;);</span><br><span class="line">      data[key] = $.html();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>————————————————<br>版权声明：本文为CSDN博主「Ericam_」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a href="https://blog.csdn.net/xjm850552586/article/details/84101345" target="_blank" rel="noopener">https://blog.csdn.net/xjm850552586/article/details/84101345</a></p>
+<hr>
+<p>open the file  <em>_config.yml</em> by any editor, for me I have install Emacs, so I can edit the<br>file in Emacs.<br>change the value of <em>post_asset_folder</em> from <em>false</em> to <em>true</em><br>then open the terminator in the folder <em>_posts</em> and input<br><code>hexo new &quot;the name you want use&quot;</code><br>and cite the picture by<br><img src="/2019/12/18/how-to-add-images-in-hexo-blog/timg.jpeg" alt="赞"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://lzg0015.github.io/2019/12/18/how-to-add-images-in-hexo-blog/" data-id="cknwkr8wa000hlbi5hspdfs8r" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-backup" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/12/18/backup/" class="article-date">
@@ -94,43 +137,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lzg0015.github.io/2019/12/18/backup/" data-id="cknwk7zqx000c9oi5bdl54c3w" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Some-configuration-on-the-second-day" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/12/18/Some-configuration-on-the-second-day/" class="article-date">
-  <time datetime="2019-12-17T22:49:37.117Z" itemprop="datePublished">2019-12-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/18/Some-configuration-on-the-second-day/">Some configuration on the second day</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="2018-12-23-08-32-11"><a href="#2018-12-23-08-32-11" class="headerlink" title="2018-12-23 08:32:11"></a>2018-12-23 08:32:11</h2><h2 id="这是第二天的一些配置，等我理清一下思路，再写。"><a href="#这是第二天的一些配置，等我理清一下思路，再写。" class="headerlink" title="这是第二天的一些配置，等我理清一下思路，再写。"></a>这是第二天的一些配置，等我理清一下思路，再写。</h2>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://lzg0015.github.io/2019/12/18/Some-configuration-on-the-second-day/" data-id="cknwk7zqq00089oi591qe4u0z" class="article-share-link">Share</a>
+      <a data-url="http://lzg0015.github.io/2019/12/18/backup/" data-id="cknwkr8w4000dlbi56posbiqh" class="article-share-link">Share</a>
       
       
     </footer>
@@ -179,7 +186,43 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lzg0015.github.io/2019/12/18/hello-world/" data-id="cknwk7zqz000e9oi5dyfi2qj1" class="article-share-link">Share</a>
+      <a data-url="http://lzg0015.github.io/2019/12/18/hello-world/" data-id="cknwkr8w8000glbi54xke169q" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Some-configuration-on-the-second-day" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/12/18/Some-configuration-on-the-second-day/" class="article-date">
+  <time datetime="2019-12-17T22:49:37.117Z" itemprop="datePublished">2019-12-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/18/Some-configuration-on-the-second-day/">Some configuration on the second day</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="2018-12-23-08-32-11"><a href="#2018-12-23-08-32-11" class="headerlink" title="2018-12-23 08:32:11"></a>2018-12-23 08:32:11</h2><h2 id="这是第二天的一些配置，等我理清一下思路，再写。"><a href="#这是第二天的一些配置，等我理清一下思路，再写。" class="headerlink" title="这是第二天的一些配置，等我理清一下思路，再写。"></a>这是第二天的一些配置，等我理清一下思路，再写。</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://lzg0015.github.io/2019/12/18/Some-configuration-on-the-second-day/" data-id="cknwkr8vx0008lbi54xycdr24" class="article-share-link">Share</a>
       
       
     </footer>
@@ -216,7 +259,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lzg0015.github.io/2019/12/15/Li-Yunlong/" data-id="cknwk7zqn00059oi59o8s6h9v" class="article-share-link">Share</a>
+      <a data-url="http://lzg0015.github.io/2019/12/15/Li-Yunlong/" data-id="cknwkr8vv0005lbi50h280ly7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -256,7 +299,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lzg0015.github.io/2019/12/14/Why-Explore-Space/" data-id="cknwk7zqu000a9oi5fyq63gyh" class="article-share-link">Share</a>
+      <a data-url="http://lzg0015.github.io/2019/12/14/Why-Explore-Space/" data-id="cknwkr8vz0009lbi53r3sbkce" class="article-share-link">Share</a>
       
       
     </footer>
@@ -294,7 +337,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lzg0015.github.io/2019/12/12/%E8%87%B4%E9%81%B5%E5%8C%96%E4%B8%80%E4%B8%AD/" data-id="cknwk7zrf000n9oi5348l69eo" class="article-share-link">Share</a>
+      <a data-url="http://lzg0015.github.io/2019/12/12/%E8%87%B4%E9%81%B5%E5%8C%96%E4%B8%80%E4%B8%AD/" data-id="cknwkr8wn000qlbi5gupb8m39" class="article-share-link">Share</a>
       
       
     </footer>
@@ -331,7 +374,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lzg0015.github.io/2019/11/09/A-dream/" data-id="cknwk7zqe00019oi5a2b15xd8" class="article-share-link">Share</a>
+      <a data-url="http://lzg0015.github.io/2019/11/09/A-dream/" data-id="cknwkr8vm0001lbi5h8iy8d5b" class="article-share-link">Share</a>
       
       
     </footer>
@@ -368,7 +411,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lzg0015.github.io/2019/11/08/%E9%BB%91%E9%BE%99%E6%B1%9F%E5%A4%A7%E5%AD%A6%E6%A0%A1%E6%AD%8C/" data-id="cknwk7zri000p9oi5e44sf2o1" class="article-share-link">Share</a>
+      <a data-url="http://lzg0015.github.io/2019/11/08/%E9%BB%91%E9%BE%99%E6%B1%9F%E5%A4%A7%E5%AD%A6%E6%A0%A1%E6%AD%8C/" data-id="cknwkr8wq000slbi52gkdbhx2" class="article-share-link">Share</a>
       
       
     </footer>
@@ -404,44 +447,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lzg0015.github.io/2019/03/19/%E2%80%9CA-new-day-has-come/" data-id="cknwk7zr9000j9oi5aaj745va" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-过唐山北站" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/18/%E8%BF%87%E5%94%90%E5%B1%B1%E5%8C%97%E7%AB%99/" class="article-date">
-  <time datetime="2019-03-18T15:54:50.000Z" itemprop="datePublished">2019-03-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/18/%E8%BF%87%E5%94%90%E5%B1%B1%E5%8C%97%E7%AB%99/">过唐山北站</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>一缕斜阳抚红房，连绵远岱映野旷。忽见枯草随风曳，尤是故景有别样。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://lzg0015.github.io/2019/03/18/%E8%BF%87%E5%94%90%E5%B1%B1%E5%8C%97%E7%AB%99/" data-id="cknwk7zrg000o9oi5fwjddy8m" class="article-share-link">Share</a>
+      <a data-url="http://lzg0015.github.io/2019/03/19/%E2%80%9CA-new-day-has-come/" data-id="cknwkr8wi000mlbi5a8t7bh6n" class="article-share-link">Share</a>
       
       
     </footer>
@@ -469,7 +475,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Current-Events/" rel="tag">Current Events</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wikipedia/" rel="tag">wikipedia</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Current-Events/" rel="tag">Current Events</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/english-learning/" rel="tag">english learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wikipedia/" rel="tag">wikipedia</a></li></ul>
     </div>
   </div>
 
@@ -479,7 +485,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Current-Events/" style="font-size: 10px;">Current Events</a> <a href="/tags/wikipedia/" style="font-size: 10px;">wikipedia</a>
+      <a href="/tags/Current-Events/" style="font-size: 10px;">Current Events</a> <a href="/tags/english-learning/" style="font-size: 10px;">english learning</a> <a href="/tags/wikipedia/" style="font-size: 10px;">wikipedia</a>
     </div>
   </div>
 
@@ -501,6 +507,10 @@
       <ul>
         
           <li>
+            <a href="/2021/04/25/aptitude/">aptitude</a>
+          </li>
+        
+          <li>
             <a href="/2021/04/13/Fukushima-Wastewater-Will-Be-Released-Into-the-Ocean/">Fukushima Wastewater Will Be Released Into the Ocean</a>
           </li>
         
@@ -514,10 +524,6 @@
         
           <li>
             <a href="/2021/04/12/2021-4-12/">2021.4.12</a>
-          </li>
-        
-          <li>
-            <a href="/2020/01/01/fisrt-day-of-twenty-twenty/">fisrt day of twenty-twenty</a>
           </li>
         
       </ul>
